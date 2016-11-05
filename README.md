@@ -18,7 +18,7 @@ Boost.DateTime поддерживает только кадендарные да
 
 Заголовочный файл `boost/date_time/gregorian/gregorian.hpp` содержит определения для всех классов и функций, которые обрабатывают календаные даты. Эти функции и классы могут быть найдены в пространстве имен `boost::gregorian`. Чтобы создать дату, используйте класс `boost::gregorian::date`. 
 
-<a name="example"></a>
+<a name="Example"></a>
 **Пример 36.1. Создание даты, используя `boost::gregorian::date`**
     #include <boost/date_time/gregorian/gregorian.hpp>
     #include <iostream>
@@ -35,4 +35,4 @@ Boost.DateTime поддерживает только кадендарные да
 ---
 `boost::gregorian::date` предоставляет несколько конструкторов для создания даты. Самый основной конструктор принимает год, месяц и день в качестве параметров. Если задано недопустимое значение, будет выброшено исключение типа `boost::gregorian::bad_day_of_month`, `boost::gregorian::bad_year` или `boost::gregorian::bad_month`. Все эти классы будут производными от `std::out_of_range`. 
 
-Как показано в [примере 36.1](#example) 
+Как показано в [примере 36.1](#Example) 
