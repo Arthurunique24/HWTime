@@ -21,6 +21,7 @@ Boost.DateTime поддерживает только кадендарные да
 
 <a name="Example36.1"></a>
 **Пример 36.1. Создание даты, используя `boost::gregorian::date`**
+    
     #include <boost/date_time/gregorian/gregorian.hpp>
     #include <iostream>
 
