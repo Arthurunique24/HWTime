@@ -9,30 +9,30 @@
 **Пример 37.1. Все часы в Boost.Chrono**
 ```cpp
 
-    #include <boost/chrono.hpp>
-    #include <iostream>
+#include <boost/chrono.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      std::cout << system_clock::now() << '\n';
-    #ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
-      std::cout << steady_clock::now() << '\n';
-    #endif
-      std::cout << high_resolution_clock::now() << '\n';
+int main()
+{
+  std::cout << system_clock::now() << '\n';
+#ifdef BOOST_CHRONO_HAS_CLOCK_STEADY
+  std::cout << steady_clock::now() << '\n';
+#endif
+  std::cout << high_resolution_clock::now() << '\n';
 
-    #ifdef BOOST_CHRONO_HAS_PROCESS_CLOCKS
-      std::cout << process_real_cpu_clock::now() << '\n';
-      std::cout << process_user_cpu_clock::now() << '\n';
-      std::cout << process_system_cpu_clock::now() << '\n';
-      std::cout << process_cpu_clock::now() << '\n';
-    #endif
+#ifdef BOOST_CHRONO_HAS_PROCESS_CLOCKS
+  std::cout << process_real_cpu_clock::now() << '\n';
+  std::cout << process_user_cpu_clock::now() << '\n';
+  std::cout << process_system_cpu_clock::now() << '\n';
+  std::cout << process_cpu_clock::now() << '\n';
+#endif
 
-    #ifdef BOOST_CHRONO_HAS_THREAD_CLOCK
-      std::cout << thread_clock::now() << '\n';
-    #endif
-    }
+#ifdef BOOST_CHRONO_HAS_THREAD_CLOCK
+  std::cout << thread_clock::now() << '\n';
+#endif
+}
 ```
 
 [Пример 37.1](#Example37.1) выводит все вариации часов, представленных в Boost.Chrono. Все часы имеют общую функцию-член `now()`, которая возвращает временную точку. Все временные точки относятся к универсальному моменту времени. Эта временная точка является эпохой. Эпоха начинается с 1 января 1970. [Пример 37.1](#Example37.1) выводит эпоху для каждой временной точки.
@@ -78,21 +78,21 @@ Boost.Chrono включает в себя следующие часы:
 **Пример 37.2. Сложение и вычитаниче продолжительности, с использованием Boost.Chrono**
 ```cpp
 
-    #include <boost/chrono.hpp>
-    #include <iostream>
+#include <boost/chrono.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      process_real_cpu_clock::time_point p = process_real_cpu_clock::now();
-      std::cout << p << '\n';
-      std::cout << p - nanoseconds{1} << '\n';
-      std::cout << p + milliseconds{1} << '\n';
-      std::cout << p + seconds{1} << '\n';
-      std::cout << p + minutes{1} << '\n';
-      std::cout << p + hours{1} << '\n';
-    }
+int main()
+{
+  process_real_cpu_clock::time_point p = process_real_cpu_clock::now();
+  std::cout << p << '\n';
+  std::cout << p - nanoseconds{1} << '\n';
+  std::cout << p + milliseconds{1} << '\n';
+  std::cout << p + seconds{1} << '\n';
+  std::cout << p + minutes{1} << '\n';
+  std::cout << p + hours{1} << '\n';
+}
 ```
 
 `now()` возвращает объект типа `boost::chrono::time_point` для всех вариаций часов. Этот тип тесно связан с часами, так как временные точки измеряются относительно опорной временной точки, которая определяется часами. `boost::chrono::time_point` - это шаблон, который ожидает тип часов, как параметр. Каждый тип синхронизации обеспечивает определение типа для своей специализации `boost::chrono::time_point`. Например, определением типа `process_real_cpu_clock` является `process_real_cpu_clock :: time_point`.
@@ -107,17 +107,17 @@ Boost.Chrono перегружает несколько операторов дл
 **Пример 37.3. Присвоение временных точек с использованием `boost::chrono::time_point_cast()`**
 ```cpp
 
-    #include <boost/chrono.hpp>
-    #include <iostream>
+#include <boost/chrono.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      process_real_cpu_clock::time_point p = process_real_cpu_clock::now();
-      std::cout << p << '\n';
-      std::cout << time_point_cast<minutes>(p) << '\n';
-    }
+int main()
+{
+  process_real_cpu_clock::time_point p = process_real_cpu_clock::now();
+  std::cout << p << '\n';
+  std::cout << time_point_cast<minutes>(p) << '\n';
+}
 ```
 
 Функция `boost::chrono::time_point_cast()` используется как оператор приведения. [Пример 37.3](#Example37.3) использует `boost::chrono::time_point_cast()`, для преобразования временных промежутков, указанных в наносекундах, к временным промежуткам в минутах. В этом случае вы должны использовать `boost::chrono::time_point_cast()`, потому что временные точки не могут быть выражены в более точных еденицах(минутах), без потенциальной потери точности. Вам не требуется `boost::chrono::time_point_cast()` для преобразования менее точных едениц в более точные. 
@@ -128,19 +128,19 @@ Boost.Chrono предоставляет оператор приведения д
 **Пример 37.4. Присвоение временных точек с использованием `boost::chrono::duration_cast()`**
 ```cpp
 
-    #include <boost/chrono.hpp>
-    #include <iostream>
+ #include <boost/chrono.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      minutes m{1};
-      seconds s{35};
+int main()
+{
+  minutes m{1};
+  seconds s{35};
 
-      std::cout << m + s << '\n';
-      std::cout << duration_cast<minutes>(m + s) << '\n';
-    }
+  std::cout << m + s << '\n';
+  std::cout << duration_cast<minutes>(m + s) << '\n';
+}
 ```
 
 [Пример 37.4](#Example37.4) использует функцию `boost::chrono::duration_cast()` преобразует продолжительность из секунд в минуты. Этот пример записывает **1 минута** в стандартный вывод.
@@ -149,17 +149,17 @@ Boost.Chrono предоставляет оператор приведения д
 **Пример 37.5. Округление продолжительностей**
 ```cpp
 
-    #include <boost/chrono.hpp>
-    #include <iostream>
+ #include <boost/chrono.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      std::cout << floor<minutes>(minutes{1} + seconds{45}) << '\n';
-      std::cout << round<minutes>(minutes{1} + seconds{15}) << '\n';
-      std::cout << ceil<minutes>(minutes{1} + seconds{15}) << '\n';
-    }
+int main()
+{
+  std::cout << floor<minutes>(minutes{1} + seconds{45}) << '\n';
+  std::cout << round<minutes>(minutes{1} + seconds{15}) << '\n';
+  std::cout << ceil<minutes>(minutes{1} + seconds{15}) << '\n';
+}
 ```
 
 Boost.Chrono также предоставляет функции округления продолжительностей при приведении. `boost::chrono::round()` округляет в большую или меньшую сторону, `boost::chrono::floor()` округляет в меньшую сторону и `boost::chrono::ceil()` округляет в большую сторону. `boost::chrono::floor()` использует `boost::chrono::duration_cast()` - между этими функциями нет разницы. 
@@ -170,20 +170,20 @@ Boost.Chrono также предоставляет функции округле
 **Пример 37.6. Потоковые манипуляторы для определенного пользователем выхода**
 ```cpp
 
-    #define BOOST_CHRONO_VERSION 2
-    #include <boost/chrono.hpp>
-    #include <boost/chrono/chrono_io.hpp>
-    #include <iostream>
+#define BOOST_CHRONO_VERSION 2
+#include <boost/chrono.hpp>
+#include <boost/chrono/chrono_io.hpp>
+#include <iostream>
 
-    using namespace boost::chrono;
+using namespace boost::chrono;
 
-    int main()
-    {
-      std::cout << symbol_format << minutes{10} << '\n';
+int main()
+{
+    std::cout << symbol_format << minutes{10} << '\n';
 
-      std::cout << time_fmt(boost::chrono::timezone::local, "%H:%M:%S") <<
-        system_clock::now() << '\n';
-    }
+  std::cout << time_fmt(boost::chrono::timezone::local, "%H:%M:%S") <<
+    system_clock::now() << '\n';
+}
  ```
  
 Boost.Chrono предоставляет различные потоковые манипуляторы для форматирования вывода временных точек и длительности. Например, с манипулятором `boost::chrono::symbol_format()`, единица времени записывается как символ вместо имени. Таким образом, в [примере 37.6](#Example37.6) выводит **10 min**.
