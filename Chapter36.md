@@ -23,6 +23,7 @@ Boost.DateTime поддерживает только кадендарь на о�
 **Пример 36.1. Создание даты, используя `boost::gregorian::date`**
     
 ```cpp
+
     #include <boost/date_time/gregorian/gregorian.hpp>
     #include <iostream>
 
